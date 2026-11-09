@@ -24,9 +24,15 @@
    Add ?src=tiktok (or instagram, youtube...) to a post's link to see in Google Play which post brought the install. */
 (() => {
   const ANDROID_LIVE = true;    // set to true the day the app is public on Google Play
-  const IOS = 'https://apps.apple.com/app/id6825472830';
-  const src = (new URLSearchParams(location.search).get('src') || 'site').replace(/[^\w-]/g, '').slice(0, 40);
-  const PLAY = 'https://play.google.com/store/apps/details?id=com.grimmittgames.monkeyvinerush&referrer=' + encodeURIComponent('utm_source=' + src + '&utm_medium=social');
+  // Campaign tags (user, 2026-11-09): ?src=<platform> and, for ads, &c=<ad id>. They're handed to the stores so App Store
+  // Connect (Acquisition → Campaigns) and Play Console (UTM campaigns) can count the downloads each post or ad brought.
+  // PT is the App Store Connect provider token (the pt= in a campaign link made there); without it Apple ignores ct.
+  const PT = '';
+  const q = new URLSearchParams(location.search), clean = v => String(v || '').replace(/[^\w-]/g, '').slice(0, 40);
+  const src = clean(q.get('src')) || 'site', camp = clean(q.get('c'));
+  const ct = camp || (src !== 'site' ? src : '');
+  const IOS = 'https://apps.apple.com/app/id6825472830' + (PT && ct ? '?pt=' + PT + '&ct=' + ct + '&mt=8' : '');
+  const PLAY = 'https://play.google.com/store/apps/details?id=com.grimmittgames.monkeyvinerush&referrer=' + encodeURIComponent('utm_source=' + src + '&utm_medium=' + (camp ? 'paid' : 'social') + (camp ? '&utm_campaign=' + camp : ''));
   const ua = navigator.userAgent || '';
   // iPadOS asks for the desktop site and calls itself a Mac, but a Mac has no touch screen
   const ios = /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
@@ -138,6 +144,7 @@ html[data-kind="other"] .badges[data-show~="other"],html[data-kind="soon"] .badg
     if (/^zh-(tw|hk|mo|hant)/.test(low) || low === 'zh-hant'){ code = 'zh-TW'; break; }
     const two = low.slice(0, 2); if (T[two]){ code = two; break; } if (two === 'en') break; }
   if (T[code]){ document.documentElement.lang = code; for (const el of document.querySelectorAll('[data-t]')){ const v = T[code][el.dataset.t]; if (v) el.textContent = v; } }
+  for (const a of document.querySelectorAll('.jsIos')) a.href = G.IOS;
   for (const a of document.querySelectorAll('.jsPlay')) a.href = G.PLAY;
   for (const a of document.querySelectorAll('.jsPlaySlot')) a.href = G.PLAY;
   // a QR code back to this page, for people reading the post on a computer
