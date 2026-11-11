@@ -85,6 +85,14 @@ html[data-android="live"] .badges [data-store="android-live"],html[data-android=
 .badges [data-store]{display:none}
 @media (max-width:420px){main{padding:26px 18px}.badges img,.soon{height:52px}}
 </style>
+<script>(()=>{const ID='G-2M1YFDZQH2',K='mvr-consent';window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}window.gtag=gtag;
+/* Google Analytics, the same property as monkeyvinerush.com, only after the visitor accepts (this subdomain keeps its own choice) */
+gtag('consent','default',{analytics_storage:'denied',ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied'});
+let c=null;try{c=localStorage.getItem(K);}catch(e){}
+const load=()=>{if(window.__mvrGA)return;window.__mvrGA=1;gtag('consent','update',{analytics_storage:'granted'});const s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id='+ID;document.head.appendChild(s);gtag('js',new Date());gtag('config',ID,{device_kind:(window.MVR_GET||{}).kind||''});};
+const wipe=()=>{for(const n of document.cookie.split(';').map(x=>x.split('=')[0].trim()))if(/^_ga/.test(n))for(const d of ['',location.hostname,'.'+location.hostname.replace(/^download\./,'')])document.cookie=n+'=; Max-Age=0; path=/'+(d?'; domain='+d:'');};
+window.mvrConsent={get:()=>{try{return localStorage.getItem(K);}catch(e){return null;}},set:v=>{const was=window.mvrConsent.get();try{localStorage.setItem(K,v);}catch(e){}if(v==='yes')load();else{wipe();if(was==='yes'&&window.__mvrGA)location.reload();}}};
+if(c==='yes')load();})();</script>
 </head>
 <body>
 <main>
@@ -180,5 +188,22 @@ html[data-android="live"] .badges [data-store="android-live"],html[data-android=
   if (G.kind === 'other' && (G.APPLE_LIVE || G.ANDROID_LIVE) && window.qrcode){ try { const q = qrcode(0, 'M'); q.addData('https://download.monkeyvinerush.com/'); q.make(); document.getElementById('qr').innerHTML = q.createSvgTag({ cellSize: 6, margin: 0, scalable: true }); } catch (e) {} }
 })();
 </script>
+<div class="ckbar" id="ckBar" role="dialog" aria-live="polite" aria-label="Cookie Policy" hidden>
+  <p><span id="ckTxt">We'd like to use Google Analytics cookies to see how people use this site, so we can make it better. They're only set if you accept.</span> <a id="ckPol" href="https://monkeyvinerush.com/cookies/">Cookie policy</a></p>
+  <div class="ckbtns"><button type="button" class="ckb ghost" data-ck="no">Reject</button><button type="button" class="ckb" data-ck="yes">Accept</button></div>
+</div>
+<style>.ckbar{position:fixed;left:50%;bottom:max(16px,env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:60;width:min(720px,calc(100% - 24px));box-sizing:border-box;display:flex;flex-wrap:wrap;align-items:center;gap:12px 18px;padding:16px 18px;border-radius:20px;background:rgba(6,23,15,.96);border:1.5px solid rgba(255,210,63,.55);box-shadow:0 18px 50px rgba(0,0,0,.5);color:#eaf7ee;font-family:'Fredoka',system-ui,sans-serif;font-size:16px;line-height:1.45;text-align:left}
+.ckbar[hidden]{display:none}.ckbar p{margin:0;flex:1 1 300px}.ckbar a{color:#ffd23f;font-weight:600}.ckbtns{display:flex;gap:10px;flex:0 0 auto;margin-left:auto}
+.ckb{font:inherit;font-weight:700;font-size:1rem;background:#ffd23f;color:#3a2210;border:0;border-radius:999px;padding:10px 22px;cursor:pointer;box-shadow:0 4px 0 #c48a12}
+.ckb.ghost{background:transparent;color:#eaf7ee;box-shadow:none;border:1.5px solid rgba(255,255,255,.4)}
+@media (max-width:520px){.ckbtns{width:100%}.ckb{flex:1}}</style>
+<script>(()=>{const bar=document.getElementById('ckBar'),C=window.mvrConsent;if(!bar||!C)return;
+const CK={"es":{"t":"Nos gustaría usar cookies de Google Analytics para ver cómo se usa este sitio y así mejorarlo. Solo se instalan si las aceptas.","p":"Política de cookies","no":"Rechazar","yes":"Aceptar"},"fr":{"t":"Nous aimerions utiliser des cookies Google Analytics pour voir comment ce site est utilisé et l’améliorer. Ils ne sont déposés que si tu acceptes.","p":"Politique de cookies","no":"Refuser","yes":"Accepter"},"de":{"t":"Wir möchten Google-Analytics-Cookies verwenden, um zu sehen, wie diese Website genutzt wird, und sie zu verbessern. Sie werden nur gesetzt, wenn du zustimmst.","p":"Cookie-Richtlinie","no":"Ablehnen","yes":"Akzeptieren"},"pt":{"t":"Gostaríamos de usar cookies do Google Analytics para ver como o site é usado e melhorá-lo. Eles só são definidos se você aceitar.","p":"Política de cookies","no":"Recusar","yes":"Aceitar"},"it":{"t":"Vorremmo usare i cookie di Google Analytics per capire come viene usato questo sito e migliorarlo. Vengono impostati solo se accetti.","p":"Cookie policy","no":"Rifiuta","yes":"Accetta"},"nl":{"t":"We willen graag cookies van Google Analytics gebruiken om te zien hoe deze site wordt gebruikt, zodat we hem kunnen verbeteren. Ze worden alleen geplaatst als je akkoord gaat.","p":"Cookiebeleid","no":"Weigeren","yes":"Accepteren"},"pl":{"t":"Chcielibyśmy używać plików cookie Google Analytics, aby sprawdzać, jak korzystasz z tej strony, i ją ulepszać. Są zapisywane tylko wtedy, gdy się zgodzisz.","p":"Polityka plików cookie","no":"Odrzucam","yes":"Akceptuję"},"sv":{"t":"Vi vill gärna använda cookies från Google Analytics för att se hur sajten används och göra den bättre. De sätts bara om du godkänner.","p":"Cookiepolicy","no":"Avvisa","yes":"Godkänn"},"ru":{"t":"Мы хотели бы использовать файлы cookie Google Analytics, чтобы понимать, как люди пользуются сайтом, и делать его лучше. Они сохраняются, только если ты согласишься.","p":"Политика cookie","no":"Отклонить","yes":"Принять"},"zh":{"t":"我们想使用 Google Analytics 分析 Cookie，了解大家如何使用本网站，以便改进它。只有在你同意后才会设置这些 Cookie。","p":"Cookie 政策","no":"拒绝","yes":"接受"},"zh-TW":{"t":"我們想使用 Google Analytics 分析 Cookie，了解大家如何使用本網站，以便改進它。只有在你同意後才會設定這些 Cookie。","p":"Cookie 政策","no":"拒絕","yes":"接受"},"ja":{"t":"このサイトがどのように使われているかを知って改善するため、Google アナリティクスの Cookie を使いたいと考えています。同意した場合にのみ設定されます。","p":"Cookie ポリシー","no":"拒否する","yes":"同意する"},"ko":{"t":"이 사이트가 어떻게 사용되는지 알고 더 좋게 만들기 위해 Google 애널리틱스 쿠키를 사용하고 싶어요. 동의한 경우에만 설정돼요.","p":"쿠키 정책","no":"거부","yes":"동의"},"tr":{"t":"Bu sitenin nasıl kullanıldığını görüp geliştirmek için Google Analytics çerezlerini kullanmak istiyoruz. Yalnızca kabul edersen ayarlanırlar.","p":"Çerez politikası","no":"Reddet","yes":"Kabul et"},"id":{"t":"Kami ingin memakai cookie Google Analytics untuk melihat bagaimana situs ini digunakan agar bisa kami perbaiki. Cookie hanya dipasang jika kamu setuju.","p":"Kebijakan cookie","no":"Tolak","yes":"Terima"}};
+const l=document.documentElement.lang,k=CK[l];
+if(k){document.getElementById('ckTxt').textContent=k.t;const a=document.getElementById('ckPol');a.textContent=k.p;a.href='https://monkeyvinerush.com/'+l+'/cookies/';bar.querySelector('[data-ck="no"]').textContent=k.no;bar.querySelector('[data-ck="yes"]').textContent=k.yes;}
+if(!C.get())bar.hidden=false;
+document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-ck]');if(b){C.set(b.dataset.ck);bar.hidden=true;return;}
+/* which store button people tap (only counted once they've accepted) */
+const st=e.target.closest&&e.target.closest('a[data-store]');if(st&&window.__mvrGA&&window.gtag)gtag('event','store_click',{store:st.dataset.store.split('-')[0],device_kind:(window.MVR_GET||{}).kind||'',transport_type:'beacon'});});})();</script>
 </body>
 </html>
